@@ -1,44 +1,38 @@
 package br.com.verdebordo.needlework.service
 
 import br.com.verdebordo.needlework.model.User
+import br.com.verdebordo.needlework.repository.UserRepository
 import org.springframework.stereotype.Service
 
 @Service
-class UserService {
-    val users = mutableListOf<User>()
-
+class UserService(
+    val userRepository: UserRepository
+) {
     fun getAll(name: String?): List<User> {
         name?.let {
-            return users.filter {
-                it.name.contains(name, true)
-            }
+            return userRepository.findByNameContainingIgnoreCase(it)
         }
-        return users
+        return userRepository.findAll()
+            .toList()
     }
 
     fun getCustomer(id: Int): User {
-        return users.first {
-            it.id == id
-        }
+        return userRepository.findById(id)
+            .orElseThrow()
     }
 
     fun create(user: User) {
-        val id = if (users.lastOrNull()?.id == null) 1 else (users.last().id?.let { it + 1 })
-        user.id = id
-        users.add(user)
-        println(user)
+        userRepository.save(user)
     }
 
-    fun update(id: Int, user: User) {
-        users.first { it.id == id }.let {
-            it.name = user.name
-            it.email = user.email
-        }
+    fun update(id: Int, newData: User) {
+        val user = getCustomer(id)
+        user.updateUser(newData.name, newData.email)
+        userRepository.save(user)
     }
 
     fun delete(id: Int) {
-        users.removeIf {
-            it.id == id
-        }
+        val user = getCustomer(id)
+        userRepository.delete(user)
     }
 }

@@ -1,0 +1,8 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:mysql://172.17.0.2:3306/needlework?createDatabaseIfNotExist=true
+    username: root
+    password: root
