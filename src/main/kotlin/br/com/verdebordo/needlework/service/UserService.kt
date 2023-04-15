@@ -24,9 +24,8 @@ class UserService(
         getById(id).toResponse()
 
 
-    fun create(user: User) {
+    fun create(user: User) =
         userRepository.save(user)
-    }
 
     fun update(id: Int, newData: User) {
         val user = getById(id)
@@ -36,11 +35,11 @@ class UserService(
 
     fun delete(id: Int) {
         val user = getById(id)
-        userRepository.delete(user)
+        user.delete()
+        userRepository.save(user)
     }
 
     private fun getById(id: Int): User =
         userRepository.findById(id)
             .orElseThrow()
-
 }

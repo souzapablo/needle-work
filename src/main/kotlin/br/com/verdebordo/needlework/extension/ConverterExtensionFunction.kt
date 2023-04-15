@@ -14,14 +14,16 @@ fun PostUserRequest.toUser(): User {
 
 fun PutUserRequest.toUser(): User {
     return User(
-        name = this.name,
-        email = this.email
+        name = this.name ?: "",
+        email = this.email ?: ""
     )
 }
 
-fun User.toResponse() : UserResponse {
+fun User.toResponse(): UserResponse {
     return UserResponse(
         id = this.id,
         name = this.name,
-        email = this.email    )
+        email = this.email,
+        isActive = this.isActive
+    )
 }

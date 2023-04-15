@@ -2,8 +2,8 @@ package br.com.verdebordo.needlework.controller
 
 import br.com.verdebordo.needlework.controller.request.PostUserRequest
 import br.com.verdebordo.needlework.controller.request.PutUserRequest
+import br.com.verdebordo.needlework.controller.response.UserResponse
 import br.com.verdebordo.needlework.extension.toUser
-import br.com.verdebordo.needlework.model.User
 import br.com.verdebordo.needlework.service.UserService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
@@ -15,12 +15,12 @@ class UserController(
 ) {
 
     @GetMapping
-    fun getAll(@RequestParam name: String?): List<User> {
+    fun getAll(@RequestParam name: String?): List<UserResponse> {
         return userService.getAll(name)
     }
 
     @GetMapping("/{id}")
-    fun getCustomer(@PathVariable id: Int): User {
+    fun getCustomer(@PathVariable id: Int): UserResponse {
         return userService.getCustomer(id)
     }
 

@@ -12,11 +12,23 @@ data class User(
     @Column(nullable = false)
     var name: String,
 
+    @Column(nullable = false, unique = true)
+    var email: String,
+
+    ) {
     @Column(nullable = false)
-    var email: String
-) {
+    var isActive: Boolean = true
+        private set
+
+    fun delete() {
+        isActive = !isActive
+    }
+
     fun updateUser(newName: String, newEmail: String) {
-        name = newName
-        email = newEmail
+        if (newName.isNotBlank())
+            name = newName
+        if (newEmail.isNotBlank())
+            email = newEmail
     }
 }
+
