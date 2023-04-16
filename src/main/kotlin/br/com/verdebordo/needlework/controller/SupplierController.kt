@@ -5,6 +5,9 @@ import br.com.verdebordo.needlework.controller.request.PutSupplierRequest
 import br.com.verdebordo.needlework.controller.response.SupplierResponse
 import br.com.verdebordo.needlework.extension.toSupplier
 import br.com.verdebordo.needlework.service.SupplierService
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
+import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
@@ -14,8 +17,11 @@ class SupplierController(
     val supplierService: SupplierService
 ) {
     @GetMapping
-    fun getAll(@RequestParam name: String?): List<SupplierResponse> =
-        supplierService.getAll(name)
+    fun getAll(
+        @PageableDefault(page = 0, size = 10) pageable: Pageable,
+        @RequestParam name: String?
+    ): Page<SupplierResponse> =
+        supplierService.getAll(pageable, name)
 
     @GetMapping("/{id}")
     fun getSupplier(@PathVariable id: Int): SupplierResponse =

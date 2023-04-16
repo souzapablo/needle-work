@@ -4,6 +4,8 @@ import br.com.verdebordo.needlework.controller.response.SupplierResponse
 import br.com.verdebordo.needlework.extension.toResponse
 import br.com.verdebordo.needlework.model.Supplier
 import br.com.verdebordo.needlework.repository.SupplierRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
 @Service
@@ -11,14 +13,13 @@ class SupplierService(
     val supplierRepository: SupplierRepository,
     val userService: UserService
 ) {
-    fun getAll(name: String?): List<SupplierResponse> {
+    fun getAll(pageable: Pageable, name: String?): Page<SupplierResponse> {
         name?.let { it ->
-            return supplierRepository.findByNameContainingIgnoreCase(it)
+            return supplierRepository.findByNameContainingIgnoreCase(pageable, it)
                 .map { it.toResponse() }
         }
-        return supplierRepository.findAll()
+        return supplierRepository.findAll(pageable)
             .map { it.toResponse() }
-            .toList()
     }
 
     fun getSupplier(id: Int): SupplierResponse =

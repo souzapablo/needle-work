@@ -5,6 +5,9 @@ import br.com.verdebordo.needlework.controller.request.PutUserRequest
 import br.com.verdebordo.needlework.controller.response.UserResponse
 import br.com.verdebordo.needlework.extension.toUser
 import br.com.verdebordo.needlework.service.UserService
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
+import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
@@ -15,8 +18,11 @@ class UserController(
 ) {
 
     @GetMapping
-    fun getAll(@RequestParam name: String?): List<UserResponse> =
-        userService.getAll(name)
+    fun getAll(
+        @PageableDefault(page = 0, size = 10) pageable: Pageable,
+        @RequestParam name: String?
+    ): Page<UserResponse> =
+        userService.getAll(pageable, name)
 
     @GetMapping("/{id}")
     fun getCustomer(@PathVariable id: Int): UserResponse =
