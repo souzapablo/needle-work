@@ -22,7 +22,16 @@ data class Product(
     var isActive: Boolean = true
         private set
 
-    private fun delete() {
+    fun delete() {
         isActive = !isActive
+    }
+
+    fun update(newPrice: BigDecimal?, newDescription: String) {
+        newPrice?.let {
+            price = it
+        }
+
+        if (newDescription.isNotBlank())
+            description = newDescription
     }
 }

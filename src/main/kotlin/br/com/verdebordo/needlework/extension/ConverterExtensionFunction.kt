@@ -1,9 +1,6 @@
 package br.com.verdebordo.needlework.extension
 
-import br.com.verdebordo.needlework.controller.request.PostSupplierRequest
-import br.com.verdebordo.needlework.controller.request.PostUserRequest
-import br.com.verdebordo.needlework.controller.request.PutSupplierRequest
-import br.com.verdebordo.needlework.controller.request.PutUserRequest
+import br.com.verdebordo.needlework.controller.request.*
 import br.com.verdebordo.needlework.controller.response.ProductResponse
 import br.com.verdebordo.needlework.controller.response.SupplierResponse
 import br.com.verdebordo.needlework.controller.response.UserResponse
@@ -62,4 +59,17 @@ fun Product.toResponse(): ProductResponse =
         price = this.price,
         isActive = this.isActive,
         supplierId = this.supplier?.id
+    )
+
+fun PostProductRequest.toProduct(): Product =
+    Product(
+        description = this.description,
+        price = this.price,
+        supplier = Supplier(this.supplierId)
+    )
+
+fun PutProductRequest.toProduct(): Product =
+    Product(
+        description = this.description,
+        price = this.price
     )
