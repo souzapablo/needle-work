@@ -5,6 +5,7 @@ import br.com.verdebordo.needlework.controller.request.PutSupplierRequest
 import br.com.verdebordo.needlework.controller.response.SupplierResponse
 import br.com.verdebordo.needlework.extension.toSupplier
 import br.com.verdebordo.needlework.service.SupplierService
+import jakarta.validation.Valid
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
@@ -29,7 +30,7 @@ class SupplierController(
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun create(@RequestBody request: PostSupplierRequest) =
+    fun create(@Valid @RequestBody request: PostSupplierRequest) =
         supplierService.create(request.toSupplier())
 
     @PutMapping("/{id}")

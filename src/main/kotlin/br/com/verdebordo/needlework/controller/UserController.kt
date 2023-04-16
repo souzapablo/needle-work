@@ -5,6 +5,7 @@ import br.com.verdebordo.needlework.controller.request.PutUserRequest
 import br.com.verdebordo.needlework.controller.response.UserResponse
 import br.com.verdebordo.needlework.extension.toUser
 import br.com.verdebordo.needlework.service.UserService
+import jakarta.validation.Valid
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
@@ -30,7 +31,7 @@ class UserController(
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun create(@RequestBody request: PostUserRequest) =
+    fun create(@RequestBody @Valid request: PostUserRequest) =
         userService.create(request.toUser())
 
 

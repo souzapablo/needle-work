@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository
 
 interface UserRepository : JpaRepository<User, Int?> {
     fun findByNameContainingIgnoreCase(pageable: Pageable, name: String): Page<User>
+    fun existsByEmail(email: String): Boolean
 }

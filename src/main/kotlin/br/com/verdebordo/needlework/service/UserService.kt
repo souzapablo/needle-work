@@ -41,6 +41,9 @@ class UserService(
         userRepository.save(user)
     }
 
+    fun isEmailAvailable(email: String): Boolean =
+        !userRepository.existsByEmail(email)
+
     private fun getById(id: Int): User =
         userRepository.findById(id)
             .orElseThrow {
@@ -49,4 +52,5 @@ class UserService(
                     Errors.NW101.code
                 )
             }
+
 }
