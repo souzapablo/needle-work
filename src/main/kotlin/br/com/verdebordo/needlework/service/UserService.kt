@@ -23,7 +23,6 @@ class UserService(
     fun getCustomer(id: Int): UserResponse =
         getById(id).toResponse()
 
-
     fun create(user: User) =
         userRepository.save(user)
 

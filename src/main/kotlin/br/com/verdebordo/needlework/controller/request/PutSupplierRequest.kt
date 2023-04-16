@@ -1,6 +1,6 @@
 package br.com.verdebordo.needlework.controller.request
 
-data class PutUserRequest(
+data class PutSupplierRequest(
     val newName: String?,
-    val newEmail: String?
+    val newContact: String?
 )

@@ -2,9 +2,8 @@ package br.com.verdebordo.needlework.model
 
 import jakarta.persistence.*
 
-@Entity(name = "user")
-data class User(
-
+@Entity(name = "supplier")
+data class Supplier(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Int? = null,
@@ -12,17 +11,11 @@ data class User(
     @Column(nullable = false)
     var name: String = "",
 
-    @Column(nullable = false, unique = true)
-    var email: String = "",
-
     @Column(nullable = false)
-    @OneToMany(
-        fetch = FetchType.LAZY,
-        cascade = [CascadeType.REMOVE],
-        mappedBy = "user"
-    )
-    var suppliers: List<Supplier> = mutableListOf()
+    var contact: String = "",
 
+    @ManyToOne
+    var user: User? = null
 ) {
     @Column(nullable = false)
     var isActive: Boolean = true
@@ -32,11 +25,11 @@ data class User(
         isActive = !isActive
     }
 
-    fun updateUser(newName: String, newEmail: String) {
+    fun updateSupplier(newName: String, newContact: String) {
         if (newName.isNotBlank())
             name = newName
-        if (newEmail.isNotBlank())
-            email = newEmail
+
+        if (newContact.isNotBlank())
+            contact = newContact
     }
 }
-

@@ -15,30 +15,27 @@ class UserController(
 ) {
 
     @GetMapping
-    fun getAll(@RequestParam name: String?): List<UserResponse> {
-        return userService.getAll(name)
-    }
+    fun getAll(@RequestParam name: String?): List<UserResponse> =
+        userService.getAll(name)
 
     @GetMapping("/{id}")
-    fun getCustomer(@PathVariable id: Int): UserResponse {
-        return userService.getCustomer(id)
-    }
+    fun getCustomer(@PathVariable id: Int): UserResponse =
+        userService.getCustomer(id)
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun create(@RequestBody request: PostUserRequest) {
+    fun create(@RequestBody request: PostUserRequest) =
         userService.create(request.toUser())
-    }
+
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun update(@PathVariable id: Int, @RequestBody customer: PutUserRequest) {
+    fun update(@PathVariable id: Int, @RequestBody customer: PutUserRequest) =
         userService.update(id, customer.toUser())
-    }
+
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun delete(@PathVariable id: Int) {
+    fun delete(@PathVariable id: Int) =
         userService.delete(id)
-    }
 }
