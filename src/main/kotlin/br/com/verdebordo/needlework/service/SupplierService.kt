@@ -1,6 +1,8 @@
 package br.com.verdebordo.needlework.service
 
+import br.com.verdebordo.needlework.controller.exception.NotFoundException
 import br.com.verdebordo.needlework.controller.response.SupplierResponse
+import br.com.verdebordo.needlework.enum.Errors
 import br.com.verdebordo.needlework.extension.toResponse
 import br.com.verdebordo.needlework.model.Supplier
 import br.com.verdebordo.needlework.repository.SupplierRepository
@@ -45,5 +47,10 @@ class SupplierService(
 
     private fun getById(id: Int): Supplier =
         supplierRepository.findById(id)
-            .orElseThrow()
+            .orElseThrow {
+                NotFoundException(
+                    Errors.NW201.message.format(id),
+                    Errors.NW201.code
+                )
+            }
 }

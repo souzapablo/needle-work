@@ -1,6 +1,8 @@
 package br.com.verdebordo.needlework.service
 
+import br.com.verdebordo.needlework.controller.exception.NotFoundException
 import br.com.verdebordo.needlework.controller.response.UserResponse
+import br.com.verdebordo.needlework.enum.Errors
 import br.com.verdebordo.needlework.extension.toResponse
 import br.com.verdebordo.needlework.model.User
 import br.com.verdebordo.needlework.repository.UserRepository
@@ -41,5 +43,10 @@ class UserService(
 
     private fun getById(id: Int): User =
         userRepository.findById(id)
-            .orElseThrow()
+            .orElseThrow {
+                NotFoundException(
+                    Errors.NW101.message.format(id),
+                    Errors.NW101.code
+                )
+            }
 }
