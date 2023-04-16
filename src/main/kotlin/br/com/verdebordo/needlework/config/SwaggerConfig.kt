@@ -14,7 +14,11 @@ class SwaggerConfig {
     fun publicApi(): GroupedOpenApi? {
         return GroupedOpenApi.builder()
             .group("br.com.verdebordo.needlework")
-            .pathsToMatch("/api/v1/users/**", "/api/v1/suppliers/**")
+            .pathsToMatch(
+                "/api/v1/users/**",
+                "/api/v1/suppliers/**",
+                "/api/v1/products/**"
+            )
             .build()
     }
 
@@ -24,7 +28,7 @@ class SwaggerConfig {
             .info(
                 Info()
                     .title("NeedleWork API")
-                    .description("Spring shop sample application")
+                    .description("NeedleWork is an API developed in Kotlin designed especially for small embroidery businesses.")
                     .version("v1")
                     .contact(
                         Contact()

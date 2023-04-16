@@ -15,7 +15,15 @@ data class Supplier(
     var contact: String = "",
 
     @ManyToOne
-    var user: User? = null
+    var user: User? = null,
+
+    @Column(nullable = false)
+    @OneToMany(
+        fetch = FetchType.LAZY,
+        cascade = [CascadeType.REMOVE],
+        mappedBy = "supplier"
+    )
+    var products: List<Product> = mutableListOf()
 ) {
     @Column(nullable = false)
     var isActive: Boolean = true

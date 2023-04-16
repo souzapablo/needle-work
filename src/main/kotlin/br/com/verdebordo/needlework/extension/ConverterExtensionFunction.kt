@@ -4,8 +4,10 @@ import br.com.verdebordo.needlework.controller.request.PostSupplierRequest
 import br.com.verdebordo.needlework.controller.request.PostUserRequest
 import br.com.verdebordo.needlework.controller.request.PutSupplierRequest
 import br.com.verdebordo.needlework.controller.request.PutUserRequest
+import br.com.verdebordo.needlework.controller.response.ProductResponse
 import br.com.verdebordo.needlework.controller.response.SupplierResponse
 import br.com.verdebordo.needlework.controller.response.UserResponse
+import br.com.verdebordo.needlework.model.Product
 import br.com.verdebordo.needlework.model.Supplier
 import br.com.verdebordo.needlework.model.User
 
@@ -51,4 +53,13 @@ fun PutSupplierRequest.toSupplier(): Supplier =
     Supplier(
         name = this.newName ?: "",
         contact = this.newContact ?: ""
+    )
+
+fun Product.toResponse(): ProductResponse =
+    ProductResponse(
+        id = this.id,
+        description = this.description,
+        price = this.price,
+        isActive = this.isActive,
+        supplierId = this.supplier?.id
     )
