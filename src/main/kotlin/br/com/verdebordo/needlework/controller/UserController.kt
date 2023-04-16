@@ -27,7 +27,7 @@ class UserController(
 
     @GetMapping("/{id}")
     fun getCustomer(@PathVariable id: Int): UserResponse =
-        userService.getCustomer(id)
+        userService.getUser(id)
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
